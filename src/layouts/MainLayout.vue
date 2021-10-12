@@ -1,6 +1,6 @@
 <template>
   <q-layout view="lHh Lpr lFf">
-    <q-header elevated>
+    <q-header elevated class="bg-primary">
       <q-toolbar>
         <q-btn
           flat
@@ -12,21 +12,19 @@
         />
 
         <q-toolbar-title>
-          Quasar App
+          Theme Switcher
         </q-toolbar-title>
 
-        <div>Quasar v{{ $q.version }}</div>
+        <div></div>
       </q-toolbar>
     </q-header>
 
     <q-drawer
       v-model="leftDrawerOpen"
-      show-if-above
       bordered
-      class="bg-grey-1"
     >
       <q-list>
-        <q-item-label
+        <!-- <q-item-label
           header
           class="text-grey-8"
         >
@@ -37,7 +35,30 @@
           v-for="link in essentialLinks"
           :key="link.title"
           v-bind="link"
-        />
+        /> -->
+    <q-select
+        v-model="theme"
+        filled
+        label="Theme Switcher"
+        :options="options"
+      >
+        <template #option="scope">
+          <q-item v-bind="scope.itemProps">
+            <q-item-section avatar>
+              <q-icon :name="scope.opt.icon" />
+            </q-item-section>
+            <q-item-section>
+              <q-item-label v-text="scope.opt.label" />
+              <q-item-label caption>{{ scope.opt.description }}</q-item-label>
+            </q-item-section>
+          </q-item>
+        </template>
+      </q-select>
+      <q-toggle
+        v-model="$q.dark.mode"
+        label="Dark Mode"
+        @update:model-value="$q.dark.toggle()"
+      />
       </q-list>
     </q-drawer>
 
@@ -48,7 +69,16 @@
 </template>
 
 <script lang="ts">
-import EssentialLink from 'components/EssentialLink.vue'
+// import EssentialLink from 'components/EssentialLink.vue';
+import { defineComponent, ref, watch } from 'vue';
+
+interface ThemeOption {
+  label?: string
+  value?: string
+  description?: string
+  icon?: string
+  color?: string
+}
 
 const linksList = [
   {
@@ -95,24 +125,68 @@ const linksList = [
   }
 ];
 
-import { defineComponent, ref } from 'vue'
-
 export default defineComponent({
   name: 'MainLayout',
 
   components: {
-    EssentialLink
   },
 
   setup () {
     const leftDrawerOpen = ref(false)
+    const theme = ref<ThemeOption>({});
+
+    watch(theme, (newOption: ThemeOption) => {
+      if (newOption) {
+        document.body.setAttribute('data-theme', newOption.value || 'blue')
+      }
+    });
 
     return {
       essentialLinks: linksList,
       leftDrawerOpen,
+      options: [
+        {
+          label: 'Bootstrap 5',
+          value: 'bootstrap',
+          description: 'Bootstrap v5 theme',
+          icon: 'palette',
+          color: 'primary'
+        },
+        {
+          label: 'Cape Palliser',
+          value: 'cape-palliser',
+          description: 'Cape Palliser is a saturated light warm orange theme',
+          icon: 'palette',
+          color: 'primary'
+        },
+        {
+          label: 'Polo Blue',
+          value: 'polo-blue',
+          description: 'Polo blue is a unsaturated very light cold azure theme',
+          icon: 'palette',
+          color: 'primary'
+        },
+        {
+          label: 'Quasar',
+          value: 'quasar',
+          description: 'Quasar default theme',
+          icon: 'palette',
+          color: 'primary'
+        }
+      ],
+      theme,
       toggleLeftDrawer () {
         leftDrawerOpen.value = !leftDrawerOpen.value
       }
+    }
+  },
+
+  created() {
+    this.theme = {
+      label: 'Bootstrap',
+      value: 'bootstrap',
+      icon: 'las la-square',
+      color: 'primary'
     }
   }
 })

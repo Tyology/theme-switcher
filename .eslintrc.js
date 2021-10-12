@@ -39,8 +39,8 @@ module.exports = {
     // but leave only one uncommented!
     // See https://eslint.vuejs.org/rules/#available-rules
     'plugin:vue/vue3-essential', // Priority A: Essential (Error Prevention)
-    // 'plugin:vue/vue3-strongly-recommended', // Priority B: Strongly Recommended (Improving Readability)
-    // 'plugin:vue/vue3-recommended', // Priority C: Recommended (Minimizing Arbitrary Choices and Cognitive Overhead)
+    'plugin:vue/vue3-strongly-recommended', // Priority B: Strongly Recommended (Improving Readability)
+    'plugin:vue/vue3-recommended', // Priority C: Recommended (Minimizing Arbitrary Choices and Cognitive Overhead)
 
     // https://github.com/prettier/eslint-config-prettier#installation
     // usage with Prettier, provided by 'eslint-config-prettier'.
@@ -83,6 +83,21 @@ module.exports = {
     '@typescript-eslint/explicit-module-boundary-types': 'off',
 
     // allow debugger during development only
-    'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off'
+    'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
+
+    // '@typescript-eslint/indent': ['error', 4],
+    // 'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
+    // 'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
+    // 'space-infix-ops': 'error',
+    // 'indent': ['error', 4, { "SwitchCase": 1 }],
+    // 'vue/script-indent': ['off'],
+    // 'vue/html-indent': ['error', 4, {}],
+    // 'vue/no-unsupported-features': [
+    //     'error',
+    //     {
+    //         'version': '^2.6.12',
+    //         'ignores': []
+    //     }
+    // ]
   }
 }

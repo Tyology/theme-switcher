@@ -1,0 +1,84 @@
+@use "sass:map";
+
+$themes: (
+    
+    'bootstrap': (
+        primary: #0d6efd,
+        secondary: #6c757d,
+        accent: #B23CFD,
+
+        dark: #212529,
+        light: #f8f9fa,
+
+        positive: #198754,
+        negative: #dc3545,
+        info: #0dcaf0,
+        warning: #ffc107,
+    ),
+    'cape-palliser': (
+        primary: #AB5F46,   //cape palliser
+        secondary: #B48763, //muddy waters
+        accent: #958583,    //hurricane
+
+        dark: #1E2423,      //outer space
+        light: #F0EDE7,     //pampas
+
+        positive: #198754,
+        negative: #dc3545,
+        info: #0dcaf0,
+        warning: #ffc107,
+    ),
+    'polo-blue': (
+        primary: #93B4D1,   //polo blue
+        secondary: #C5A65B, //sundance
+        accent: #796D7F,    //mobster
+
+        dark: #466D9E,      //san marino
+        light: #F6F8F7,     //black haze
+
+        positive: #198754,
+        negative: #dc3545,
+        info: #0dcaf0,
+        warning: #ffc107,
+    ),
+    'quasar': (
+        // primary: #0d6efd,
+        // secondary: #6c757d,
+        // accent: #B23CFD,
+
+        // dark: #212529,
+        light: #f8f9fa,
+
+        // positive: #198754,
+        // negative: #dc3545,
+        // info: #0dcaf0,
+        // warning: #ffc107,
+        
+        // medium: #89868B,
+        // backdrop: #F4F2ED,
+        // active: #FFF8F1,
+
+        // marginal-bg: #FFBC00,
+        // marginal-text: #FFFFFF,
+        // marginal-btn: rgba(#FFFFFF, 0.56),
+        // marginal-btn-active: #FFFFFF
+    )
+);
+
+@each $theme, $colors in $themes {
+    [data-theme="#{$theme}"] {
+        @each $name, $color in $colors {
+            .bg-#{$name} {
+                background: $color !important;
+            }
+            .text-#{$name} {
+                color: $color !important;
+            }
+        }
+
+        // Quasar component overrides
+        .q-field__control, .q-item--active {
+            color: map.get($colors, primary) !important;
+        }
+    }
+}
